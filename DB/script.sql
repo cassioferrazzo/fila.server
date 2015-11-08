@@ -1,4 +1,4 @@
-/*
+﻿/*
 Created		28/10/2015
 Modified		28/10/2015
 Project		
@@ -19,7 +19,7 @@ Create table "tb_fila"
 	"ativo" Boolean,
 	"codigo" Varchar(10),
 	"data" DATE NOT NULL,
-	"hora" TIME NOT NULL
+	"hora" TIME NOT NULL,
  primary key ("id_fila")
 ) Without Oids;
 
