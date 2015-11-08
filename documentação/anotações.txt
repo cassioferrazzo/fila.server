@@ -1,0 +1,9 @@
+projeto fila android
+
+
+http://localhost:50000/datasnap/rest/TSM/requisitarCodigo
+
+caso o aplicativo seja fechado com uma fila (vaga) em aberto quando o aplicativo voltar deve voltar a tela de andamento da fila.
+
+o dispositivo assim que ler o qrcode deve identificar o servidor (URL) de comunicação e salva-lo no banco de dados junto com o código da fila para posteriores comunicações.
+
