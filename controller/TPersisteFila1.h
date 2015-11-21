@@ -42,10 +42,12 @@ public:
 	__fastcall ~TPersisteFila(void);
 	TJSONObject *__fastcall requisitarSenha(void);
 	void __fastcall finalizarAtendimento(TJSONObject *jsSenha);
+	void __fastcall finalizarAtendimentoById(int id);
 	TJSONArray *__fastcall getSenhasAtivas(void);
 	void __fastcall cancelarAtendimento(TJSONObject *jsSenha);
 	TJSONObject *__fastcall verificarStatusSenha(TJSONObject *jsSenha);
 	TJSONObject *__fastcall chamarProximaSenha(void);
+	TJSONObject *__fastcall verificarStatusSenhaById(int id);
 };
 // ---------------------------------------------------------------------------
 #endif

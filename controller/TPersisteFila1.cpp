@@ -119,6 +119,23 @@ void __fastcall TPersisteFila::cancelarAtendimento(TJSONObject *jsSenha) {
 }
 
 // ---------------------------------------------------------------------------
+void __fastcall TPersisteFila::finalizarAtendimentoById(int id) {
+
+	tabela->Open();
+	try {
+		if (tabela->Locate("id_fila", id)) {
+			tabela->Edit();
+			tabela->FieldByName("ativo")->AsBoolean = false;
+			tabela->Post();
+		}
+	}
+	__finally {
+		tabela->Unprepare();
+		tabela->Close();
+	}
+}
+
+// ---------------------------------------------------------------------------
 void __fastcall TPersisteFila::finalizarAtendimento(TJSONObject *jsSenha) {
 
 	TSenha *senha = new TSenha;
@@ -192,7 +209,7 @@ int __fastcall TPersisteFila::calcularSenhasNaFrente(UnicodeString codigoSenha)
 		tabela->Close();
 	}
 
-	qry->Open("Select * from tb_fila where ativo = true");
+	qry->Open("SELECT * FROM tb_fila WHERE ativo = TRUE ORDER BY id_fila");
 	try {
 		TSenha *senha;
 		qry->First();
@@ -213,15 +230,17 @@ int __fastcall TPersisteFila::calcularSenhasNaFrente(UnicodeString codigoSenha)
 }
 
 // ---------------------------------------------------------------------------
-TJSONObject *__fastcall TPersisteFila::verificarStatusSenha
-	(TJSONObject *jsSenha) {
+TJSONObject *__fastcall TPersisteFila::verificarStatusSenhaById(int id) {
 
 	TSenha *senha = new TSenha;
-	senha->fromJSON(jsSenha);
 	tabela->Open();
 	try {
-		if (tabela->Locate("id_fila", senha->id)) {
+		if (tabela->Locate("id_fila", id)) {
+			senha->id = tabela->FieldByName("id_fila")->AsInteger;
+			senha->hora = tabela->FieldByName("hora")->AsDateTime;
+			senha->data = tabela->FieldByName("data")->AsDateTime;
 			senha->ativo = tabela->FieldByName("ativo")->AsBoolean;
+			senha->codigo = tabela->FieldByName("codigo")->AsString;
 			senha->senhasNaFrente = calcularSenhasNaFrente(senha->codigo);
 		}
 	}
@@ -234,9 +253,24 @@ TJSONObject *__fastcall TPersisteFila::verificarStatusSenha
 }
 
 // ---------------------------------------------------------------------------
+TJSONObject *__fastcall TPersisteFila::verificarStatusSenha
+	(TJSONObject *jsSenha) {
+
+	TSenha *senha = new TSenha;
+	try {
+		senha->fromJSON(jsSenha);
+		return verificarStatusSenhaById(senha->id);
+	}
+	__finally {
+		delete senha;
+	}
+	return NULL;
+}
+
+// ---------------------------------------------------------------------------
 TJSONObject *__fastcall TPersisteFila::chamarProximaSenha(void) {
 
-	qry->Open("Select * from tb_fila where ativo = true");
+	qry->Open("SELECT * FROM tb_fila WHERE ativo = TRUE ORDER BY id_fila");
 	try {
 		TSenha *senha = new TSenha;
 		qry->First();

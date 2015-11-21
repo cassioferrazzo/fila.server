@@ -1,9 +1,11 @@
 object Form1: TForm1
   Left = 271
   Top = 114
-  Caption = 'Form1'
-  ClientHeight = 235
-  ClientWidth = 399
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Servidor'
+  ClientHeight = 159
+  ClientWidth = 207
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -45,7 +47,7 @@ object Form1: TForm1
     Width = 121
     Height = 21
     TabOrder = 2
-    Text = '8080'
+    Text = '50000'
   end
   object ButtonOpenBrowser: TButton
     Left = 24
@@ -58,7 +60,7 @@ object Form1: TForm1
   end
   object ApplicationEvents1: TApplicationEvents
     OnIdle = ApplicationEvents1Idle
-    Left = 288
-    Top = 24
+    Left = 128
+    Top = 40
   end
 end

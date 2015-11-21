@@ -18,10 +18,9 @@
 #pragma link "IdHTTPWebBrokerBridge"
 
 //---------------------------------------------------------------------------
+USEFORM("uWM.cpp", WM); /* TWebModule: File Type */
+USEFORM("uSM.cpp", SM); /* TDataModule: File Type */
 USEFORM("FormUnit1.cpp", Form1);
-USEFORM("FormUnit1.cpp", Form1);
-USEFORM("ServerMethodsUnit1.cpp", ServerMethods1); /* TDataModule: File Type */
-USEFORM("WebModuleUnit1.cpp", WebModule1); /* TWebModule: File Type */
 //---------------------------------------------------------------------------
 extern PACKAGE TComponentClass WebModuleClass;
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)

@@ -3,19 +3,18 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "ServerMethodsUnit1.h"
+#include "uSM.h"
 #include "TPersisteFila1.h"
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 
 // ---------------------------------------------------------------------------
-__fastcall TServerMethods1::TServerMethods1(TComponent* Owner)
-	: TDataModule(Owner) {
+__fastcall TSM::TSM(TComponent* Owner) : TDataModule(Owner) {
 }
 
 // ----------------------------------------------------------------------------
-TJSONObject * __fastcall TServerMethods1::requisitarSenha(void) {
+TJSONObject * __fastcall TSM::requisitarSenha(void) {
 
 	TPersisteFila *pFila = new TPersisteFila;
 	try {
@@ -28,7 +27,7 @@ TJSONObject * __fastcall TServerMethods1::requisitarSenha(void) {
 }
 
 // ----------------------------------------------------------------------------
-TJSONObject * __fastcall TServerMethods1::chamarProximaSenha(void) {
+TJSONObject * __fastcall TSM::chamarProximaSenha(void) {
 	TPersisteFila *pFila = new TPersisteFila;
 	try {
 		return pFila->chamarProximaSenha();
@@ -40,8 +39,7 @@ TJSONObject * __fastcall TServerMethods1::chamarProximaSenha(void) {
 }
 
 // ----------------------------------------------------------------------------
-TJSONObject * __fastcall TServerMethods1::finalizarAtendimento
-	(TJSONObject *senha) {
+TJSONObject * __fastcall TSM::finalizarAtendimento(TJSONObject *senha) {
 
 	TPersisteFila *pFila = new TPersisteFila;
 	try {
@@ -51,11 +49,35 @@ TJSONObject * __fastcall TServerMethods1::finalizarAtendimento
 		delete pFila;
 	}
 	return new TJSONObject(new TJSONPair("status", new TJSONNull));
+
 }
 
 // ----------------------------------------------------------------------------
-TJSONObject * __fastcall TServerMethods1::verificarStatusSenha
-	(TJSONObject *senha) {
+void __fastcall TSM::finalizarAtendimentoById(int id)
+{
+	TPersisteFila *pFila = new TPersisteFila;
+	try {
+		pFila->finalizarAtendimentoById(id);
+	}
+	__finally {
+		delete pFila;
+	}
+}
+// ----------------------------------------------------------------------------
+TJSONObject * __fastcall TSM::verificarStatusSenhaById(int id) {
+
+	TPersisteFila *pFila = new TPersisteFila;
+	try {
+		return pFila->verificarStatusSenhaById(id);
+	}
+	__finally {
+		delete pFila;
+	}
+	return new TJSONObject(new TJSONPair("status", new TJSONNull));
+}
+
+// ----------------------------------------------------------------------------
+TJSONObject * __fastcall TSM::verificarStatusSenha(TJSONObject *senha) {
 
 	TPersisteFila *pFila = new TPersisteFila;
 	try {
@@ -68,7 +90,7 @@ TJSONObject * __fastcall TServerMethods1::verificarStatusSenha
 }
 
 // ----------------------------------------------------------------------------
-TJSONArray * __fastcall TServerMethods1::getSenhasAtivas(void) {
+TJSONArray * __fastcall TSM::getSenhasAtivas(void) {
 	TPersisteFila *pFila = new TPersisteFila;
 	try {
 		return pFila->getSenhasAtivas();

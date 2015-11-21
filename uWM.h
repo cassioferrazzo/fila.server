@@ -1,7 +1,7 @@
 
 //---------------------------------------------------------------------------
-#ifndef WebModuleUnit1H
-#define WebModuleUnit1H
+#ifndef uWMH
+#define uWMH
 //---------------------------------------------------------------------------
 #include <System.SysUtils.hpp>
 #include <System.Classes.hpp>
@@ -20,7 +20,7 @@
 #include <Datasnap.DSServerMetadata.hpp>
 #include <IPPeerServer.hpp>
 //---------------------------------------------------------------------------
-class TWebModule1 : public TWebModule
+class TWM : public TWebModule
 {
 __published:	// IDE-managed Components
 	TDSHTTPWebDispatcher *DSHTTPWebDispatcher1;
@@ -44,7 +44,7 @@ private:	// User declarations
 	TWebActionItem* FServerFunctionInvokerAction;
 	bool __fastcall AllowServerFunctionInvoker(void);
 public:		// User declarations
-	__fastcall TWebModule1(TComponent* Owner);
+	__fastcall TWM(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
 #endif

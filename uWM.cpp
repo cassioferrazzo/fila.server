@@ -1,27 +1,27 @@
 
 //---------------------------------------------------------------------------
-#include "WebModuleUnit1.h"
-#include "ServerMethodsUnit1.h"
+#include "uWM.h"
+#include "uSM.h"
 #include <Web.WebReq.hpp>
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 
-TComponentClass WebModuleClass = __classid(TWebModule1);
+TComponentClass WebModuleClass = __classid(TWM);
 //---------------------------------------------------------------------------
-__fastcall TWebModule1::TWebModule1(TComponent* Owner)
+__fastcall TWM::TWM(TComponent* Owner)
 	: TWebModule(Owner)
 {
 }
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-void __fastcall TWebModule1::DSServerClass1GetClass(TDSServerClass *DSServerClass,
+void __fastcall TWM::DSServerClass1GetClass(TDSServerClass *DSServerClass,
           TPersistentClass &PersistentClass)
 {
-	PersistentClass =  __classid(TServerMethods1);
+	PersistentClass =  __classid(TSM);
 }
 //----------------------------------------------------------------------------
-void __fastcall TWebModule1::ServerFunctionInvokerHTMLTag(TObject *Sender, TTag Tag,
+void __fastcall TWM::ServerFunctionInvokerHTMLTag(TObject *Sender, TTag Tag,
           const UnicodeString TagString, TStrings *TagParams, UnicodeString &ReplaceText)
 
 {
@@ -32,7 +32,7 @@ void __fastcall TWebModule1::ServerFunctionInvokerHTMLTag(TObject *Sender, TTag 
 	else if (SameText(TagString, "host"))
 		ReplaceText = (Request->Host);
 	else if (SameText(TagString, "classname"))
-		ReplaceText = __classid(TServerMethods1)->ClassName();
+		ReplaceText = __classid(TSM)->ClassName();
 	else if (SameText(TagString, "loginrequired"))
 	{
 		if (DSHTTPWebDispatcher1->AuthenticationManager != NULL)
@@ -55,7 +55,7 @@ void __fastcall TWebModule1::ServerFunctionInvokerHTMLTag(TObject *Sender, TTag 
 		ReplaceText = "";
 }
 //---------------------------------------------------------------------------
-void __fastcall TWebModule1::WebModuleDefaultAction(TObject *Sender, TWebRequest *Request,
+void __fastcall TWM::WebModuleDefaultAction(TObject *Sender, TWebRequest *Request,
 		  TWebResponse *Response, bool &Handled)
 {
   if (Request->InternalPathInfo == "" || Request->InternalPathInfo == "/")
@@ -64,7 +64,7 @@ void __fastcall TWebModule1::WebModuleDefaultAction(TObject *Sender, TWebRequest
 	Response->SendRedirect(Request->InternalScriptName + "/");
 }
 //---------------------------------------------------------------------------
-void __fastcall TWebModule1::WebModuleBeforeDispatch(TObject *Sender, TWebRequest *Request,
+void __fastcall TWM::WebModuleBeforeDispatch(TObject *Sender, TWebRequest *Request,
           TWebResponse *Response, bool &Handled)
 {
 	if (FServerFunctionInvokerAction != NULL)
@@ -73,13 +73,13 @@ void __fastcall TWebModule1::WebModuleBeforeDispatch(TObject *Sender, TWebReques
 	}
 }
 //---------------------------------------------------------------------------
-bool __fastcall TWebModule1::AllowServerFunctionInvoker(void)
+bool __fastcall TWM::AllowServerFunctionInvoker(void)
 {
 	return Request->RemoteAddr == "127.0.0.1" ||
 		Request->RemoteAddr == "0:0:0:0:0:0:0:1" || Request->RemoteAddr == "::1";
 }
 //---------------------------------------------------------------------------
-void __fastcall TWebModule1::WebFileDispatcher1BeforeDispatch(TObject *Sender, const UnicodeString AFileName,
+void __fastcall TWM::WebFileDispatcher1BeforeDispatch(TObject *Sender, const UnicodeString AFileName,
           TWebRequest *Request, TWebResponse *Response, bool &Handled)
 
 {
@@ -96,7 +96,7 @@ void __fastcall TWebModule1::WebFileDispatcher1BeforeDispatch(TObject *Sender, c
 	}
 }
 //---------------------------------------------------------------------------
-void __fastcall TWebModule1::WebModuleCreate(TObject *Sender)
+void __fastcall TWM::WebModuleCreate(TObject *Sender)
 {
 	FServerFunctionInvokerAction = ActionByName("ServerFunctionInvokerAction");
 }

@@ -1,7 +1,7 @@
 projeto fila android
 
 
-http://localhost:50000/datasnap/rest/TSM/requisitarCodigo
+http://localhost:8080/datasnap/rest/TServerMethods1/requisitarSenha
 
 caso o aplicativo seja fechado com uma fila (vaga) em aberto quando o aplicativo voltar deve voltar a tela de andamento da fila.
 

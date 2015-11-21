@@ -43,7 +43,6 @@ void __fastcall TSenha::fromJSON(TJSONObject *Value) {
 		delete ctxRtti;
 	}
 }
-
 // ---------------------------------------------------------------------------
 TJSONObject *__fastcall TSenha::toJSON(void) {
 
